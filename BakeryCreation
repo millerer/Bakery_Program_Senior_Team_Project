@@ -1,0 +1,48 @@
+CREATE DATABASE myapp
+
+\connect myapp
+
+CREATE SCHEMA bakery;
+
+CREATE TABLE bakery.ingr(
+	IngrID serial PRIMARY KEY,
+	IngrName TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE bakery.cake(
+	CakeID serial PRIMARY KEY,
+	CakeName TEXT NOT NULL UNIQUE
+);
+
+
+CREATE TABLE bakery.recipe (
+RID serial PRIMARY KEY,
+Quantity INT,
+Unit varchar(255),
+Cid INT REFERENCES bakery.cake(cakeId),
+Iid INT REFERENCES bakery.ingr(ingrID)
+);
+
+
+INSERT INTO bakery.cake VALUES (DEFAULT,'Angel Food Cake');
+INSERT INTO bakery.cake VALUES (DEFAULT,'Devils Food Cake');
+INSERT INTO bakery.cake VALUES (DEFAULT,'Vegan Carrot Cake');
+INSERT INTO bakery.cake VALUES (DEFAULT,'Peach Sorbet Cake');
+INSERT INTO bakery.cake VALUES (DEFAULT,'Blackberry Cake');
+INSERT INTO bakery.cake VALUES (DEFAULT,'Tofu Ice Cream Cake');
+INSERT INTO bakery.cake VALUES (DEFAULT,'Apple Cinnamon Cake');
+INSERT INTO bakery.cake VALUES (DEFAULT,'German Chocolate Cake');
+
+INSERT INTO bakery.ingr VALUES (DEFAULT, 'Flour');
+INSERT INTO bakery.ingr VALUES (DEFAULT, 'Sugar');
+INSERT INTO bakery.ingr VALUES (DEFAULT, 'Carrots');
+INSERT INTO bakery.ingr VALUES (DEFAULT, 'Peaches');
+
+
+INSERT INTO bakery.recipe VALUES (DEFAULT,4,'cups',1, 1);
+INSERT INTO bakery.recipe VALUES (DEFAULT,5,'cups',1, 2);
+INSERT INTO bakery.recipe VALUES (DEFAULT,2,'cups',2, 2);
+INSERT INTO bakery.recipe VALUES (DEFAULT,15,'cups',3, 1);
+INSERT INTO bakery.recipe VALUES (DEFAULT,3,'cups',3, 2);
+INSERT INTO bakery.recipe VALUES (DEFAULT,2,'handfuls', 3, 3);
+INSERT INTO bakery.recipe VALUES (DEFAULT,3,'Whole',4, 4);
